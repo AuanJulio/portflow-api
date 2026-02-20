@@ -4,7 +4,7 @@ import com.portflow.core.domain.Allocation;
 
 import java.util.List;
 
-public class GetContainerHistoryCaseImpl implements GetContainerHistoryCase {
+public class GetContainerHistoryUsecaseImpl implements GetContainerHistoryUsecase {
     @Override
     public List<Allocation> execute(String containerIsoCode) {
         return List.of();

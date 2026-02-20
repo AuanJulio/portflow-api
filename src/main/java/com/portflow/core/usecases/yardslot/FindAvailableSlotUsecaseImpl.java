@@ -2,7 +2,7 @@ package com.portflow.core.usecases.yardslot;
 
 import com.portflow.core.domain.YardSlot;
 
-public class FindAvailableSlotCaseImpl implements FindAvailableSlotCase {
+public class FindAvailableSlotUsecaseImpl implements FindAvailableSlotUsecase {
     @Override
     public YardSlot execute(Long yardId) {
         return null;

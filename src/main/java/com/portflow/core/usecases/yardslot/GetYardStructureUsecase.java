@@ -5,7 +5,7 @@ import com.portflow.core.domain.YardSlot;
 import java.util.List;
 import java.util.Map;
 
-public interface GetYardStructureCase {
+public interface GetYardStructureUsecase {
 
     public Map<String, List<YardSlot>> execute();
 

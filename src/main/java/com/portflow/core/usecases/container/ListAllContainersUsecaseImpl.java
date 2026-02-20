@@ -5,7 +5,7 @@ import com.portflow.core.domain.enums.ContainerCategory;
 
 import java.util.List;
 
-public class ListAllContainersCaseImpl implements ListAllContainersCase {
+public class ListAllContainersUsecaseImpl implements ListAllContainersUsecase {
     @Override
     public List<Container> execute(ContainerCategory category) {
         return List.of();

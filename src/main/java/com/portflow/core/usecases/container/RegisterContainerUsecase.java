@@ -2,8 +2,8 @@ package com.portflow.core.usecases.container;
 
 import com.portflow.core.domain.Container;
 
-public interface GetContainerByCodeCase {
+public interface RegisterContainerUsecase {
 
-    public Container execute(String isoCode);
+    public Container execute(Container container);
 
 }
