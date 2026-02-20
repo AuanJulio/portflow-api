@@ -1,31 +1,31 @@
 package com.portflow.infra.mapper;
 
-import com.portflow.infra.persistence.YardSlotEntity;
+import com.portflow.core.domain.YardSlot;
 import com.portflow.infra.response.yardslot.YardSlotResponse;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class YardSlotMapper {
 
-    public static YardSlotResponse toResponse(YardSlotEntity yardSlot){
+    public static YardSlotResponse toResponse(YardSlot yardSlot){
 
         String coordinate = String.format("%s-%02d-%02d-%d",
-                yardSlot.getBlock(),
-                yardSlot.getBay(),
-                yardSlot.getRow(),
-                yardSlot.getTier()
+                yardSlot.block(),
+                yardSlot.bay(),
+                yardSlot.row(),
+                yardSlot.tier()
                 );
 
-        return YardSlotResponse.builder()
-                .id(yardSlot.getId())
-                .block(yardSlot.getBlock())
-                .bay(yardSlot.getBay())
-                .row(yardSlot.getRow())
-                .tier(yardSlot.getTier())
-                .maxWeightCapacity(yardSlot.getMaxWeightCapacity())
-                .isOperational(yardSlot.getIsOperational())
-                .coordinate(coordinate)
-                .build();
+        return new YardSlotResponse(
+                yardSlot.id(),
+                yardSlot.block(),
+                yardSlot.bay(),
+                yardSlot.row(),
+                yardSlot.tier(),
+                yardSlot.maxWeightCapacity(),
+                yardSlot.isOperational(),
+                coordinate
+        );
 
     }
 

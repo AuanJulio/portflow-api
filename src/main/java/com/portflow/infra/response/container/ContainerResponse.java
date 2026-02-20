@@ -4,7 +4,6 @@ import com.portflow.core.domain.enums.ContainerCategory;
 import com.portflow.core.domain.enums.ContainerSize;
 import lombok.Builder;
 
-@Builder
 public record ContainerResponse(
         Long id,
         String isoCode,

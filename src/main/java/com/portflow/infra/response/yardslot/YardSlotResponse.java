@@ -2,7 +2,6 @@ package com.portflow.infra.response.yardslot;
 
 import lombok.Builder;
 
-@Builder
 public record YardSlotResponse(
         Long id,
         String block,
