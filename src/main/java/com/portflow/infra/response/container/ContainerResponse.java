@@ -1,4 +1,4 @@
-package com.portflow.infra.response;
+package com.portflow.infra.response.container;
 
 import com.portflow.core.domain.enums.ContainerCategory;
 import com.portflow.core.domain.enums.ContainerSize;

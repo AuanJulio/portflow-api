@@ -1,8 +1,8 @@
 package com.portflow.infra.mapper;
 
 import com.portflow.infra.persistence.ContainerEntity;
-import com.portflow.infra.request.ContainerRequest;
-import com.portflow.infra.response.ContainerResponse;
+import com.portflow.infra.request.container.ContainerRequest;
+import com.portflow.infra.response.container.ContainerResponse;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
