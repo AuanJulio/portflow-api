@@ -4,6 +4,7 @@ import com.portflow.core.domain.enums.ContainerCategory;
 import com.portflow.core.domain.enums.ContainerSize;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 public class ContainerEntity {
 
     @Id
