@@ -4,7 +4,7 @@ public record YardSlot(
         Long id,
         String block,
         Integer bay,
-        Integer slot,
+        Integer row,
         Integer tier,
         Double maxWeightCapacity,
         Boolean isOperational

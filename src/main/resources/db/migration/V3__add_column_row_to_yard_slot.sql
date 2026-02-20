@@ -1,0 +1,2 @@
+ALTER TABLE tab_yard_slot ADD COLUMN row INT;
+ALTER TABLE tab_yard_slot DROP COLUMN IF EXISTS slot;

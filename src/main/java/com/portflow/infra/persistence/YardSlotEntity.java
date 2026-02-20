@@ -23,8 +23,8 @@ public class YardSlotEntity {
     @Column(name = "bay")
     private Integer bay;
 
-    @Column(name = "slot")
-    private Integer slot;
+    @Column(name = "row")
+    private Integer row;
 
     @Column(name = "tier")
     private Integer tier;
