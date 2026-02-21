@@ -1,5 +1,6 @@
 package com.portflow.infra.beans;
 
+import com.portflow.core.gateway.ContainerGateway;
 import com.portflow.core.usecases.allocation.*;
 import com.portflow.core.usecases.container.*;
 import com.portflow.core.usecases.yardslot.*;
@@ -30,23 +31,23 @@ public class BeansConfiguration {
     }
 
     @Bean
-    public GetContainerByCodeUsecase getContainerByCodeUsecase(){
-        return new GetContainerByCodeUsecaseImpl();
+    public GetContainerByCodeUsecase getContainerByCodeUsecase(ContainerGateway containerGateway){
+        return new GetContainerByCodeUsecaseImpl(containerGateway);
     }
 
     @Bean
-    public ListAllContainersUsecase listAllContainersUsecase(){
-        return new ListAllContainersUsecaseImpl();
+    public ListAllContainersUsecase listAllContainersUsecase(ContainerGateway containerGateway){
+        return new ListAllContainersUsecaseImpl(containerGateway);
     }
 
     @Bean
-    public RegisterContainerUsecase registerContainerUsecase(){
-        return new RegisterContainerUsecaseImpl();
+    public RegisterContainerUsecase registerContainerUsecase(ContainerGateway containerGateway){
+        return new RegisterContainerUsecaseImpl(containerGateway);
     }
 
     @Bean
-    public UpdateContainerUsecase updateContainerUsecase(){
-        return new UpdateContainerUsecaseImpl();
+    public UpdateContainerUsecase updateContainerUsecase(ContainerGateway containerGateway){
+        return new UpdateContainerUsecaseImpl(containerGateway);
     }
 
     @Bean

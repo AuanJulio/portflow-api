@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface ListAllContainersUsecase {
 
-    public List<Container> execute(ContainerCategory category);
+    public List<Container> execute(String clientName, ContainerCategory category);
 
 }
