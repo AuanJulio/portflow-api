@@ -1,0 +1,1 @@
+ALTER TABLE tab_container ADD CONSTRAINT uk_tab_container_iso_code UNIQUE (iso_code);
