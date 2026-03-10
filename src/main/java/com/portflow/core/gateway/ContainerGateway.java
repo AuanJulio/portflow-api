@@ -15,4 +15,6 @@ public interface ContainerGateway {
 
     public Container updateContainer(String isoCode, Container container);
 
+    public Boolean existsByIsoCode(String isoCode);
+
 }

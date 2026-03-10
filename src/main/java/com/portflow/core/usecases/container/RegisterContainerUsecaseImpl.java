@@ -2,6 +2,7 @@ package com.portflow.core.usecases.container;
 
 import com.portflow.core.domain.Container;
 import com.portflow.core.gateway.ContainerGateway;
+import com.portflow.infra.exceptions.DuplicatedContainerException;
 
 public class RegisterContainerUsecaseImpl implements RegisterContainerUsecase {
 
@@ -13,6 +14,10 @@ public class RegisterContainerUsecaseImpl implements RegisterContainerUsecase {
 
     @Override
     public Container execute(Container container) {
+        if (containerGateway.existsByIsoCode(container.isoCode())) {
+            throw new DuplicatedContainerException("The container with iso code " + container.isoCode() + " already exists.");
+        }
+
         return containerGateway.registerContainer(container);
     }
 }

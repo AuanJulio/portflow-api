@@ -13,4 +13,6 @@ public interface ContainerRepository extends JpaRepository<ContainerEntity, Long
     @Query("SELECT t FROM ContainerEntity t WHERE (LOWER(t.clientName) LIKE LOWER(CONCAT('%', ?1, '%'))) OR (t.category = ?2) ")
     List<ContainerEntity> listAllContainersQuery(String clientName, ContainerCategory category);
 
+    Boolean existsByIsoCode(String isoCode);
+
 }

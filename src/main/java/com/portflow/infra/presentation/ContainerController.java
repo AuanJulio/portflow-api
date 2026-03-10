@@ -9,9 +9,13 @@ import com.portflow.core.usecases.container.UpdateContainerUsecase;
 import com.portflow.infra.mapper.ContainerMapper;
 import com.portflow.infra.request.container.ContainerRequest;
 import com.portflow.infra.response.container.ContainerResponse;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/containers")
@@ -30,9 +34,12 @@ public class ContainerController {
     }
 
     @PostMapping
-    public ContainerResponse registerContainer(@RequestBody ContainerRequest container){
+    public ResponseEntity<Map<String, Object>> registerContainer(@RequestBody ContainerRequest container){
         Container newContainer = registerContainerUsecase.execute(ContainerMapper.toDomain(container));
-        return ContainerMapper.toResponse(newContainer);
+        Map<String, Object> response = new HashMap<>();
+        response.put("message: ", "Container registered successfully");
+        response.put("container: ", ContainerMapper.toResponse(newContainer));
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @PutMapping("/{isoCode}")

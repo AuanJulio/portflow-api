@@ -54,4 +54,9 @@ public class ContainerRepositoryGateway implements ContainerGateway {
         }
     }
 
+    @Override
+    public Boolean existsByIsoCode(String isoCode) {
+        return containerRepository.existsByIsoCode(isoCode);
+    }
+
 }
