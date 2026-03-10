@@ -3,6 +3,7 @@ package com.portflow.infra.gateway;
 import com.portflow.core.domain.Container;
 import com.portflow.core.domain.enums.ContainerCategory;
 import com.portflow.core.gateway.ContainerGateway;
+import com.portflow.infra.exceptions.RegisterNotFoundException;
 import com.portflow.infra.mapper.ContainerEntityMapper;
 import com.portflow.infra.persistence.ContainerEntity;
 import com.portflow.infra.persistence.ContainerRepository;
@@ -27,6 +28,9 @@ public class ContainerRepositoryGateway implements ContainerGateway {
     @Override
     public Container getContainerByCode(String isoCode) {
         ContainerEntity containerEntity = containerRepository.findByIsoCode(isoCode);
+        if (containerEntity == null) {
+            throw new RegisterNotFoundException("Container with iso code " + isoCode + " not found.");
+        }
         return ContainerEntityMapper.toDomain(containerEntity);
     }
 
@@ -50,7 +54,7 @@ public class ContainerRepositoryGateway implements ContainerGateway {
             ContainerEntity updatedContainer = containerRepository.save(containerEntity);
             return ContainerEntityMapper.toDomain(updatedContainer);
         } else {
-            throw new RuntimeException("Container not found");
+            throw new RegisterNotFoundException("Container with iso code " + isoCode + " not found.");
         }
     }
 

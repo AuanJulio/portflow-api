@@ -46,4 +46,18 @@ public class ApplicationControllerAdvice {
                 .errors(errors)
                 .build();
     }
+
+    @ExceptionHandler(RegisterNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public StandardError handleRegisterNotFoundException(RegisterNotFoundException exception,
+                                                         HttpServletRequest request) {
+        return StandardError.builder()
+                .timestamp(LocalDateTime.now())
+                .status(HttpStatus.NOT_FOUND.value())
+                .error(HttpStatus.NOT_FOUND.getReasonPhrase())
+                .path(request.getRequestURI())
+                .message(exception.getMessage())
+                .errors(null)
+                .build();
+    }
 }
