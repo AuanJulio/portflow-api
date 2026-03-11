@@ -1,6 +1,7 @@
 package com.portflow.infra.exceptions;
 
-import com.portflow.infra.response.error.StandardError;
+import com.portflow.core.exceptions.DuplicatedContainerException;
+import com.portflow.core.exceptions.RegisterNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;

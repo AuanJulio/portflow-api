@@ -2,7 +2,7 @@ package com.portflow.core.usecases.container;
 
 import com.portflow.core.domain.Container;
 import com.portflow.core.gateway.ContainerGateway;
-import com.portflow.infra.exceptions.DuplicatedContainerException;
+import com.portflow.core.exceptions.DuplicatedContainerException;
 
 public class RegisterContainerUsecaseImpl implements RegisterContainerUsecase {
 

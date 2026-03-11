@@ -1,4 +1,4 @@
-package com.portflow.infra.exceptions;
+package com.portflow.core.exceptions;
 
 public class DuplicatedContainerException extends RuntimeException {
 

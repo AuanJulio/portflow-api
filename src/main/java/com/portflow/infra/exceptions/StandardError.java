@@ -1,4 +1,4 @@
-package com.portflow.infra.response.error;
+package com.portflow.infra.exceptions;
 
 import lombok.Builder;
 

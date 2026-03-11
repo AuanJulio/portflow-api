@@ -3,7 +3,7 @@ package com.portflow.infra.gateway;
 import com.portflow.core.domain.Container;
 import com.portflow.core.domain.enums.ContainerCategory;
 import com.portflow.core.gateway.ContainerGateway;
-import com.portflow.infra.exceptions.RegisterNotFoundException;
+import com.portflow.core.exceptions.RegisterNotFoundException;
 import com.portflow.infra.mapper.ContainerEntityMapper;
 import com.portflow.infra.persistence.ContainerEntity;
 import com.portflow.infra.persistence.ContainerRepository;
