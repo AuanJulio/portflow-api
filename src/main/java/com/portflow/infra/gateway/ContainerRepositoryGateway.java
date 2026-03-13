@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -26,12 +27,9 @@ public class ContainerRepositoryGateway implements ContainerGateway {
     }
 
     @Override
-    public Container getContainerByCode(String isoCode) {
-        ContainerEntity containerEntity = containerRepository.findByIsoCode(isoCode);
-        if (containerEntity == null) {
-            throw new RegisterNotFoundException("Container with iso code " + isoCode + " not found.");
-        }
-        return ContainerEntityMapper.toDomain(containerEntity);
+    public Optional<Container> getContainerByCode(String isoCode) {
+        return containerRepository.findByIsoCode(isoCode)
+                .map(c -> ContainerEntityMapper.toDomain(c));
     }
 
     @Override
@@ -42,20 +40,19 @@ public class ContainerRepositoryGateway implements ContainerGateway {
 
     @Override
     public Container updateContainer(String isoCode, Container container) {
-        ContainerEntity containerEntity = containerRepository.findByIsoCode(isoCode);
 
-        if (containerEntity != null) {
-            containerEntity.setIsoCode(container.isoCode());
-            containerEntity.setCategory(container.category());
-            containerEntity.setSize(container.size());
-            containerEntity.setTareWeight(container.tareWeight());
-            containerEntity.setPayloadWeight(container.payloadWeight());
-            containerEntity.setClientName(container.clientName());
-            ContainerEntity updatedContainer = containerRepository.save(containerEntity);
-            return ContainerEntityMapper.toDomain(updatedContainer);
-        } else {
-            throw new RegisterNotFoundException("Container with iso code " + isoCode + " not found.");
-        }
+        ContainerEntity containerEntity = containerRepository.findByIsoCode(isoCode)
+                .orElseThrow(() -> new RegisterNotFoundException("Container with iso code " + isoCode + " not found."));
+
+        containerEntity.setIsoCode(container.isoCode());
+        containerEntity.setCategory(container.category());
+        containerEntity.setSize(container.size());
+        containerEntity.setTareWeight(container.tareWeight());
+        containerEntity.setPayloadWeight(container.payloadWeight());
+        containerEntity.setClientName(container.clientName());
+        ContainerEntity updatedContainer = containerRepository.save(containerEntity);
+
+        return ContainerEntityMapper.toDomain(updatedContainer);
     }
 
     @Override

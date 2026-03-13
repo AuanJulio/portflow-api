@@ -1,6 +1,7 @@
 package com.portflow.core.usecases.container;
 
 import com.portflow.core.domain.Container;
+import com.portflow.core.exceptions.RegisterNotFoundException;
 import com.portflow.core.gateway.ContainerGateway;
 
 public class GetContainerByCodeUsecaseImpl implements GetContainerByCodeUsecase {
@@ -13,6 +14,7 @@ public class GetContainerByCodeUsecaseImpl implements GetContainerByCodeUsecase 
 
     @Override
     public Container execute(String isoCode) {
-        return containerGateway.getContainerByCode(isoCode);
+        return containerGateway.getContainerByCode(isoCode)
+                .orElseThrow(() -> new RegisterNotFoundException("Container with iso code " + isoCode + " not found."));
     }
 }

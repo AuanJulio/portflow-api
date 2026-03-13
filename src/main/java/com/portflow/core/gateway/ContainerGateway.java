@@ -4,12 +4,13 @@ import com.portflow.core.domain.Container;
 import com.portflow.core.domain.enums.ContainerCategory;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ContainerGateway {
 
     public Container registerContainer(Container container);
 
-    public Container getContainerByCode(String isoCode);
+    public Optional<Container> getContainerByCode(String isoCode);
 
     public List<Container> listAllContainers(String clientName, ContainerCategory category);
 
