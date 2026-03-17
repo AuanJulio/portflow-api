@@ -43,27 +43,30 @@ public class ContainerController {
     }
 
     @PutMapping("/{isoCode}")
-    public ContainerResponse updateContainer(@PathVariable String isoCode, @RequestBody ContainerRequest container){
+    public ResponseEntity<ContainerResponse> updateContainer(@PathVariable String isoCode, @RequestBody ContainerRequest container){
         Container containerToUpdate = ContainerMapper.toDomain(container);
         Container updatedContainer = updateContainerUsecase.execute(isoCode, containerToUpdate);
-        return ContainerMapper.toResponse(updatedContainer);
+        ContainerResponse containerResponse = ContainerMapper.toResponse(updatedContainer);
+        return ResponseEntity.status(HttpStatus.OK).body(containerResponse);
     }
 
     @GetMapping("/{isoCode}")
-    public ContainerResponse getContainer(@PathVariable String isoCode){
+    public ResponseEntity<ContainerResponse> getContainer(@PathVariable String isoCode){
         Container container = getContainerByCodeUsecase.execute(isoCode);
-        return ContainerMapper.toResponse(container);
+        ContainerResponse containerResponse = ContainerMapper.toResponse(container);
+        return ResponseEntity.status(HttpStatus.OK).body(containerResponse);
     }
 
     @GetMapping
-    public List<ContainerResponse> getAllContainers(
+    public ResponseEntity<List<ContainerResponse>> getAllContainers(
             @RequestParam(required = false) String clientName,
             @RequestParam(required = false) ContainerCategory category){
         List<Container> containers = listAllContainersUsecase.execute(clientName, category);
-
-        return containers.stream()
+        List<ContainerResponse> lstContainerResponse = containers.stream()
                 .map(c -> ContainerMapper.toResponse(c))
                 .toList();
+
+        return ResponseEntity.status(HttpStatus.OK).body(lstContainerResponse);
     }
 
 }
