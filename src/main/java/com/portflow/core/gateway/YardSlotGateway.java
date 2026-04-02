@@ -3,6 +3,7 @@ package com.portflow.core.gateway;
 import com.portflow.core.domain.YardSlot;
 
 import java.util.List;
+import java.util.Map;
 
 public interface YardSlotGateway {
 
@@ -12,5 +13,11 @@ public interface YardSlotGateway {
             Integer totalRows,
             Integer maxTiers,
             Double maxWeightCapacity);
+
+    public YardSlot findAvailableSlot();
+
+    public Map<String, List<YardSlot>> getYardStructure();
+
+    public void setSlotMaintenanceStatus(String slotId, Boolean status);
 
 }

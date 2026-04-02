@@ -4,6 +4,6 @@ import com.portflow.core.domain.YardSlot;
 
 public interface FindAvailableSlotUsecase {
 
-    public YardSlot execute(Long yardId);
+    public YardSlot execute();
 
 }
