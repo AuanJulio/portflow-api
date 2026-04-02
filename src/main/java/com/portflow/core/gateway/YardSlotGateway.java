@@ -1,17 +1,16 @@
-package com.portflow.core.usecases.yardslot;
+package com.portflow.core.gateway;
 
 import com.portflow.core.domain.YardSlot;
 
 import java.util.List;
 
-public interface InitializeYardBlockUsecase {
+public interface YardSlotGateway {
 
-    List<YardSlot> execute(
+    public List<YardSlot> initializeYardBlock(
             String block,
             Integer totalBays,
             Integer totalRows,
             Integer maxTiers,
-            Double maxWeightCapacity
-    );
+            Double maxWeightCapacity);
 
 }

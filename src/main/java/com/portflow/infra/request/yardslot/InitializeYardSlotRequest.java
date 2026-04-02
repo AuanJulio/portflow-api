@@ -4,6 +4,7 @@ public record InitializeYardSlotRequest(
         String block,
         Integer totalBays,
         Integer totalRows,
-        Integer maxTiers
+        Integer maxTiers,
+        Double maxWeightCapacity
 ) {
 }

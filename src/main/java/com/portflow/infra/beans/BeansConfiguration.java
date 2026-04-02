@@ -1,6 +1,7 @@
 package com.portflow.infra.beans;
 
 import com.portflow.core.gateway.ContainerGateway;
+import com.portflow.core.gateway.YardSlotGateway;
 import com.portflow.core.usecases.allocation.*;
 import com.portflow.core.usecases.container.*;
 import com.portflow.core.usecases.yardslot.*;
@@ -61,8 +62,8 @@ public class BeansConfiguration {
     }
 
     @Bean
-    public InitializeYardBlockUsecase initializeYardBlockUsecase(){
-        return new InitializeYardBlockUsecaseImpl();
+    public InitializeYardBlockUsecase initializeYardBlockUsecase(YardSlotGateway yardSlotGateway){
+        return new InitializeYardBlockUsecaseImpl(yardSlotGateway);
     }
 
     @Bean
