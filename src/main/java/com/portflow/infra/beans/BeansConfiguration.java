@@ -52,13 +52,13 @@ public class BeansConfiguration {
     }
 
     @Bean
-    public FindAvailableSlotUsecase findAvailableSlotUsecase(){
-        return new FindAvailableSlotUsecaseImpl();
+    public FindAvailableSlotUsecase findAvailableSlotUsecase(YardSlotGateway yardSlotGateway){
+        return new FindAvailableSlotUsecaseImpl(yardSlotGateway);
     }
 
     @Bean
-    public GetYardStructureUsecase getYardStructureUsecase(){
-        return new GetYardStructureUsecaseImpl();
+    public GetYardStructureUsecase getYardStructureUsecase(YardSlotGateway yardSlotGateway){
+        return new GetYardStructureUsecaseImpl(yardSlotGateway);
     }
 
     @Bean
@@ -67,8 +67,8 @@ public class BeansConfiguration {
     }
 
     @Bean
-    public SetSlotMaintenanceStatusUsecase setSlotMaintenanceStatusUsecase(){
-        return new SetSlotMaintenanceStatusUsecaseImpl();
+    public SetSlotMaintenanceStatusUsecase setSlotMaintenanceStatusUsecase(YardSlotGateway yardSlotGateway){
+        return new SetSlotMaintenanceStatusUsecaseImpl(yardSlotGateway);
     }
 
 }
