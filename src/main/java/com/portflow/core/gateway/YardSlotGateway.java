@@ -18,6 +18,6 @@ public interface YardSlotGateway {
 
     public Map<String, List<YardSlot>> getYardStructure();
 
-    public void setSlotMaintenanceStatus(String slotId, Boolean status);
+    public void setSlotMaintenanceStatus(Long slotId, Boolean status);
 
 }
