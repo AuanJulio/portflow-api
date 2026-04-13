@@ -12,7 +12,7 @@ public class FindAvailableSlotUsecaseImpl implements FindAvailableSlotUsecase {
     }
 
     @Override
-    public YardSlot execute() {
-        return yardSlotGateway.findAvailableSlot();
+    public YardSlot execute(Double containerWeight) {
+        return yardSlotGateway.findAvailableSlot(containerWeight);
     }
 }

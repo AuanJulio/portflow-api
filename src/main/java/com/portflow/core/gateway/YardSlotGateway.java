@@ -14,7 +14,7 @@ public interface YardSlotGateway {
             Integer maxTiers,
             Double maxWeightCapacity);
 
-    public YardSlot findAvailableSlot();
+    public YardSlot findAvailableSlot(Double containerWeight);
 
     public Map<String, List<YardSlot>> getYardStructure();
 

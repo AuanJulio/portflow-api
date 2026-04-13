@@ -4,6 +4,6 @@ import com.portflow.core.domain.YardSlot;
 
 public interface FindAvailableSlotUsecase {
 
-    public YardSlot execute();
+    public YardSlot execute(Double containerWeight);
 
 }

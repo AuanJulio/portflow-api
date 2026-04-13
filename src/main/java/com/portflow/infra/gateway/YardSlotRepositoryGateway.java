@@ -9,7 +9,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -46,6 +49,45 @@ public class YardSlotRepositoryGateway implements YardSlotGateway {
         return savedYardSlots.stream()
                 .map(ys -> YardSlotEntityMapper.toDomain(ys))
                 .toList();
+    }
+
+    @Override
+    public YardSlot findAvailableSlot(Double containerWeight) {
+        List<YardSlotEntity> yardSlots = yardSlotRepository.findAll();
+
+        YardSlotEntity bestYardSlot = yardSlots.stream()
+                .filter(y -> y.getIsOperational() == true)
+                .filter(slot -> {
+                    if (slot.getTier() == 1) {
+                        return slot.getMaxWeightCapacity() >= containerWeight;
+                    }
+                    return true;
+                })
+                .min(Comparator.comparing(YardSlotEntity::getTier)
+                        .thenComparing(YardSlotEntity::getBlock)
+                        .thenComparing(YardSlotEntity::getBay)
+                        .thenComparing(YardSlotEntity::getRow))
+                .orElseThrow(() -> new RuntimeException("No available slots found"));
+
+        return YardSlotEntityMapper.toDomain(bestYardSlot);
+    }
+
+    @Override
+    public Map<String, List<YardSlot>> getYardStructure() {
+        List<YardSlotEntity> yardSlots = yardSlotRepository.findAll();
+
+        return yardSlots.stream()
+                .map(y -> YardSlotEntityMapper.toDomain(y))
+                .collect(Collectors.groupingBy(y -> y.block()));
+    }
+
+    @Override
+    public void setSlotMaintenanceStatus(Long slotId, Boolean status) {
+        YardSlotEntity yardSlot = yardSlotRepository.findById(slotId)
+                .orElseThrow(() -> new RuntimeException("Slot not found"));
+
+        yardSlot.setIsOperational(status);
+        yardSlotRepository.save(yardSlot);
     }
 
 }
