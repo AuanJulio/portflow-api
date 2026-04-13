@@ -1,7 +1,10 @@
 package com.portflow.infra.presentation;
 
 import com.portflow.core.domain.YardSlot;
+import com.portflow.core.usecases.yardslot.FindAvailableSlotUsecase;
+import com.portflow.core.usecases.yardslot.GetYardStructureUsecase;
 import com.portflow.core.usecases.yardslot.InitializeYardBlockUsecase;
+import com.portflow.core.usecases.yardslot.SetSlotMaintenanceStatusUsecase;
 import com.portflow.infra.mapper.YardSlotMapper;
 import com.portflow.infra.request.yardslot.InitializeYardSlotRequest;
 import com.portflow.infra.request.yardslot.UpdateMaintenanceRequest;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/yardslots")
@@ -19,8 +23,20 @@ public class YardSlotController {
 
     private final InitializeYardBlockUsecase initializeYardBlockUsecase;
 
-    public YardSlotController(InitializeYardBlockUsecase initializeYardBlockUsecase) {
+    private final FindAvailableSlotUsecase findAvailableSlotUsecase;
+
+    private final GetYardStructureUsecase getYardStructureUsecase;
+
+    private final SetSlotMaintenanceStatusUsecase setSlotMaintenanceStatusUsecase;
+
+    public YardSlotController(InitializeYardBlockUsecase initializeYardBlockUsecase,
+                              FindAvailableSlotUsecase findAvailableSlotUsecase,
+                              GetYardStructureUsecase getYardStructureUsecase,
+                              SetSlotMaintenanceStatusUsecase setSlotMaintenanceStatusUsecase) {
         this.initializeYardBlockUsecase = initializeYardBlockUsecase;
+        this.findAvailableSlotUsecase = findAvailableSlotUsecase;
+        this.getYardStructureUsecase = getYardStructureUsecase;
+        this.setSlotMaintenanceStatusUsecase = setSlotMaintenanceStatusUsecase;
     }
 
     @PostMapping
@@ -40,17 +56,29 @@ public class YardSlotController {
     }
 
     @GetMapping
-    public Map<String, List<YardSlotResponse>> getStructure(){
-        return Map.of();
+    public ResponseEntity<Map<String, List<YardSlotResponse>>> getStructure() {
+        Map<String, List<YardSlot>> yardSlots = getYardStructureUsecase.execute();
+
+        Map<String, List<YardSlotResponse>> response = yardSlots.entrySet().stream()
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        entry -> entry.getValue().stream()
+                                .map(YardSlotMapper::toResponse)
+                                .toList()
+                ));
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/available")
-    public YardSlotResponse findAvailableSlot(@RequestParam Double containerWeight){
-        return null;
+    public ResponseEntity<YardSlotResponse> findAvailableSlot(@RequestParam Double containerWeight){
+        YardSlot yardSlot = findAvailableSlotUsecase.execute(containerWeight);
+        return ResponseEntity.status(HttpStatus.OK).body(YardSlotMapper.toResponse(yardSlot));
     }
 
     @PatchMapping("/{id}/status")
     public void updateYardSlotStatus(@PathVariable Long id, @RequestBody UpdateMaintenanceRequest request){
+        setSlotMaintenanceStatusUsecase.execute(id, request.isOperational());
     }
 
 }
